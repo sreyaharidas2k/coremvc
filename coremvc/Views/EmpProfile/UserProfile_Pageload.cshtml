@@ -1,0 +1,68 @@
+﻿@model coremvc.Models.Employee
+<h1>Profile View</h1>
+<form asp-action="Profile_Update_Click" class="form-horizondal">
+    <div class="form-group">
+        <label class="control-label">Id</label>
+        @Html.TextBoxFor(Model=>Model.eid)
+    </div>
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        @Html.TextBoxFor(Model => Model.ename)
+    </div>
+    <div class="form-group">
+        <label class="control-label">Address</label>
+        @Html.TextBoxFor(Model => Model.eadd)
+    </div>
+    <div class="form-group">
+        <label class="control-label">Salary</label>
+        @Html.TextBoxFor(Model => Model.esal)
+    </div>
+    <div class="form-group">
+       <input type="submit" value="Update"/>
+    </div>
+</form>
+@{
+    if(TempData["msg1"]!=null)
+    {
+            <script>
+                alert('@TempData["msg1"]');
+                </script>
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.eid</td>
+            <td>@Model.ename</td>
+            <td>@Model.eadd</td>
+            <td>@Model.esal</td>
+        </tr>
+    </tbody>
+</table> *@

@@ -1,0 +1,27 @@
+﻿@model coremvc.Models.Employee
+<form asp-action="Log_click" class="form-horizondal">
+    <div class="form-group">
+        <label class="control-label">Employee Id</label>
+        <input asp-for="eid" id="txt1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Employee Name</label>
+        <input asp-for="ename" id="txt2" class="form-control" />
+    </div>
+   
+    <div class="form-group">
+
+        <input type="submit" value="Login" class="btn btn-danger" />
+    </div>
+</form>
+
+@{
+    if (TempData["msg"] != null)
+    {
+            <script>
+                alert('@TempData["msg"]');
+                document.getElementById("txt1").value = "";
+                document.getElementById("txt2").value = "";
+            </script>
+    }
+}
