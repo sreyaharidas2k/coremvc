@@ -18,6 +18,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=EmpLogin}/{action=Log_Pageload}/{id?}");
+    pattern: "{controller=DisplayAllDetails}/{action=AllProfile_Page}/{id?}");
 
 app.Run();

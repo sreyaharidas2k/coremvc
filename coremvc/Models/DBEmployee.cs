@@ -22,9 +22,9 @@ namespace coremvc.Models
                 con.Close();
                 return ("Inserted Successfully");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if(con.State==ConnectionState.Open)
+                if (con.State == ConnectionState.Open)
                 {
                     con.Close();
                 }
@@ -62,11 +62,11 @@ namespace coremvc.Models
             {
                 SqlCommand cmd = new SqlCommand("sp_profile", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@eid",id);//get
-                
+                cmd.Parameters.AddWithValue("@eid", id);//get
+
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
-                while(dr.Read())
+                while (dr.Read())
                 {
                     getdata = new Employee
                     {
@@ -77,7 +77,7 @@ namespace coremvc.Models
                     };
                 }
                 con.Close();
-                
+
                 return getdata;//("ok...");
             }
             catch (Exception ex)
@@ -115,7 +115,103 @@ namespace coremvc.Models
             }
             return (retval);
         }
+
+
+        public List<Employee> SelectDB()
+        {
+            var list = new List<Employee>();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_selectall", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var o = new Employee
+                    {
+                        eid = Convert.ToInt32(dr["Emp_Id"]),
+                        ename = dr["Emp_Name"].ToString(),
+                        eadd = dr["Emp_Address"].ToString(),
+                        esal = dr["Emp_Salary"].ToString()
+                    };
+                    list.Add(o);
+                }
+                con.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                throw;
+            }
+        }
+
+        public string DeleteDB(int id)
+        {
+            string retval = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_delete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);//get
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                retval = "OK... Deleted";
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                return ex.Message.ToString();
+            }
+            return (retval);
+        }
+
+        public Employee DetailsDB(int id)
+        {
+
+            var getdata = new Employee();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_profile", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@eid", id);//get
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    getdata = new Employee
+                    {
+                        eid = Convert.ToInt32(dr["Emp_Id"]),//set
+                        ename = dr["Emp_Name"].ToString(),
+                        eadd = dr["Emp_Address"].ToString(),
+                        esal = dr["Emp_Salary"].ToString(),
+                    };
+                }
+                con.Close();
+
+                return getdata;//("ok...");
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                throw;
+            }
+
+        }
     }
-
-
 }
+
+
